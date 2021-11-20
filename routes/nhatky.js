@@ -3,7 +3,8 @@ const {
     getAllNhatKy,
     createNhatKy,
     getNhatKy,
-    updateNhatKy
+    updateNhatKy,
+    deleteNhatKy
 } = require('../controllers/nhatky');
 
 const router = express.Router();
@@ -13,6 +14,7 @@ router.route('/')
     .post(createNhatKy);
 router.route('/:id')
     .get(getNhatKy)
-    .patch(updateNhatKy);
+    .patch(updateNhatKy)
+    .delete(deleteNhatKy);
 
 module.exports = router;

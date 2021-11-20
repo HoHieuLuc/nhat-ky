@@ -42,7 +42,14 @@ const updateNhatKy = asyncWrapper(async (req, res, next) => {
     res.status(200).json({ nhatKy });
 });
 
-
+const deleteNhatKy = asyncWrapper(async (req, res, next) => {
+    const { id: nhatKyID } = req.params;
+    const nhatKy = await NhatKy.findOneAndDelete({ _id: nhatKyID });
+    if (!nhatKy) {
+        return next(createCustomError(`Không tồn tại nhật ký có id: ${nhatKyID}`, 404));
+    }
+    res.status(200).json({ nhatKy });
+});
 
 
 
@@ -51,5 +58,6 @@ module.exports = {
     getAllNhatKy,
     createNhatKy,
     getNhatKy,
-    updateNhatKy
+    updateNhatKy,
+    deleteNhatKy
 }
