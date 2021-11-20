@@ -3,13 +3,13 @@ const mongoose = require('mongoose');
 const NhatKySchema = new mongoose.Schema({
     tieu_de: {
         type: String,
-        require: [true, 'Cần phải nhập tiêu đề'],
+        required: [true, 'Cần phải nhập tiêu đề'],
         trim: true,
         maxlength: [50, 'Tiêu đề không được quá 50 ký tự']
     },
     noi_dung: {
         type: String,
-        require: [true, 'Cần phải nhập nội dung'],
+        required: [true, 'Cần phải nhập nội dung'],
         trim: true,
         maxlength: [1000, 'Nội dung không được quá 1000 ký tự']
     },
