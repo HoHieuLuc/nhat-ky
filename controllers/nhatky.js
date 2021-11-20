@@ -3,7 +3,14 @@ const asyncWrapper = require('../middlewares/async');
 const { createCustomError } = require('../errors/custom-error');
 
 const getAllNhatKy = asyncWrapper(async (req, res) => {
-    const nhatKys = await NhatKy.find({});
+    const nhatKys = await NhatKy.find(
+        {},
+        null,
+        {
+            sort: {
+                ngay_dang: -1
+            }
+        });
     res.status(200).json({ nhatKys });
 })
 
