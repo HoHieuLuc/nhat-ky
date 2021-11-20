@@ -14,10 +14,11 @@ app.use(express.json());
 
 // route
 app.use('/api/v1/nhatky', nhatKy);
+
+
+
 app.use(notFound);
 app.use(errorHandlerMiddleware);
-
-
 
 
 
