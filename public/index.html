@@ -10,18 +10,18 @@
     <title>Nhật ký</title>
 </head>
 
-<body>
+<body class="bg-dark text-white">
     <div class="container">
-        <form class="nhatky-form container bg-light rounded border border-1">
+        <form class="nhatky-form container bg-light rounded border border-1 bg-dark">
             <h2>Thêm nhật ký</h2>
             <div class="mb-3">
                 <label class="form-label fs-4">Tiêu đề</label>
-                <input type="text" name="tieu_de" id="tieu_de" class="form-control">
+                <input type="text" name="tieu_de" id="tieu_de" placeholder="Tiêu đề" class="form-control bg-dark text-white">
                 <label class="form-label fs-4">Nội dung</label>
-                <textarea id="noi_dung" class="form-control"></textarea>
+                <textarea id="noi_dung" placeholder="Nội dung" class="form-control bg-dark text-white"></textarea>
             </div>
             <div class="d-grid mx-auto col-md-6 mb-3">
-                <button type="submit" class="btn btn-lg btn-outline-dark">Thêm</button>
+                <button type="submit" class="btn btn-lg btn-outline-light">Thêm</button>
             </div>
             <div class="form-alert"></div>
         </form>

@@ -17,6 +17,7 @@ const showNhatKys = async () => {
             loadingDOM.style.visibility = 'hidden';
             return;
         }
+        //moment(now).format('YYYY-MM-DD HH:MM:SS')
         const allNhatKys = nhatKys.map((nhatKy) => {
             const { _id: nhatKyID, tieu_de, noi_dung, ngay_dang, lan_sua_cuoi } = nhatKy;
             return `
@@ -24,13 +25,13 @@ const showNhatKys = async () => {
                 <h3>${tieu_de}</h3>
                 <div>
                     <div class="d-flex justify-content-between">
-                        <p class="text-muted">Ngày đăng: ${ngay_dang}</p>
+                        <p class="text-muted">Ngày đăng: ${new Date(ngay_dang).toLocaleString('vi-VN')}</p>
                         ${lan_sua_cuoi !== null ?
-                    `<p class="text-muted">Lần sửa cuối: ${lan_sua_cuoi}</p>` :
+                    `<p class="text-muted">Lần sửa cuối: ${new Date(lan_sua_cuoi).toLocaleString('vi-VN')}</p>` :
                     ``
                 }
                     </div>
-                    <p>${noi_dung}</p>
+                    <textarea rows="5" disabled class="form-control bg-dark text-white">${noi_dung}</textarea>
                 </div>
                 <div class="d-flex justify-content-end gap-2">
                     <a class="btn btn-link" href="nhatky.html?id=${nhatKyID}">Sửa</a>
