@@ -1,8 +1,14 @@
+const NhatKy = require("../model/nhatky")
 const asyncWrapper = require('../middlewares/async');
 
-getAllNhatKy = asyncWrapper((req, res) => {
-    
-    res.send('get all nhat ky');
+getAllNhatKy = asyncWrapper(async (req, res) => {
+    const nhatKys = await NhatKy.find({});
+    res.status(200).json({ nhatKys });
+})
+
+createNhatKy = asyncWrapper(async (req, res) => {
+    const nhatKy = NhatKy.create(req.body);
+    res.status(200).json({ nhatKy });
 })
 
 
@@ -14,8 +20,7 @@ getAllNhatKy = asyncWrapper((req, res) => {
 
 
 
-
-
 module.exports = {
-    getAllNhatKy
+    getAllNhatKy,
+    createNhatKy
 }
