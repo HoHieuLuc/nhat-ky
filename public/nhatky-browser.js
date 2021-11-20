@@ -31,7 +31,7 @@ const showNhatKys = async () => {
                     ``
                 }
                     </div>
-                    <textarea rows="5" disabled class="form-control bg-dark text-white">${noi_dung}</textarea>
+                    <textarea style="height: 120px" disabled class="form-control bg-dark text-white">${noi_dung}</textarea>
                 </div>
                 <div class="d-flex justify-content-end gap-2">
                     <a class="btn btn-link" href="nhatky.html?id=${nhatKyID}">Sửa</a>
@@ -42,7 +42,8 @@ const showNhatKys = async () => {
         }).join('');
         nhatkysDOM.innerHTML = allNhatKys;
     } catch (error) {
-        nhatkysDOM.innerHTML = error;
+        //nhatkysDOM.innerHTML = error;
+        nhatkysDOM.innerHTML = '<h5 class="empty-list">Có lỗi xảy ra, hãy thử lại sau</h5>';
     }
     loadingDOM.style.visibility = 'hidden';
 }
@@ -84,7 +85,7 @@ formDOM.addEventListener('submit', async (e) => {
     } catch (error) {
         formAlertDOM.classList.add('text-danger');
         formAlertDOM.style.display = 'block';
-        formAlertDOM.innerHTML = `Có lỗi xảy ra`;
+        formAlertDOM.textContent = `Có lỗi xảy ra`;
     }
     setTimeout(() => {
         formAlertDOM.style.display = 'none';

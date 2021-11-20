@@ -16,7 +16,7 @@ const showNhatKy = async () => {
             data: { nhatKy }
         } = await axios.get(`/api/v1/nhatky/${id}`);
         const { ngay_dang, tieu_de, noi_dung } = nhatKy;
-        ngayDangDOM.innerHTML = new Date(ngay_dang).toLocaleString('vi-VN');
+        ngayDangDOM.textContent = new Date(ngay_dang).toLocaleString('vi-VN');
         tieuDeDOM.value = tieu_de;
         noiDungDOM.value = noi_dung;
     } catch (error) {
@@ -27,7 +27,7 @@ showNhatKy();
 
 editFormDOM.addEventListener('submit', async (e) => {
     e.preventDefault();
-    editBtnDOM.innerHTML = 'Đang xử lý...';
+    editBtnDOM.textContent = 'Đang xử lý...';
     try {
         const tieuDe = tieuDeDOM.value;
         const noiDung = noiDungDOM.value;
@@ -41,10 +41,10 @@ editFormDOM.addEventListener('submit', async (e) => {
     } catch (error) {
         console.log(error);
         formAlertDOM.style.display = 'block';
-        formAlertDOM.innerHTML = `Có lỗi xảy ra, hãy thử lại`;
+        formAlertDOM.textContent = `Có lỗi xảy ra, hãy thử lại`;
         formAlertDOM.classList.add('text-danger');
     }
-    editBtnDOM.innerHTML = 'Sửa';
+    editBtnDOM.textContent = 'Sửa';
     setTimeout(() => {
         formAlertDOM.style.display = 'none';
         formAlertDOM.classList.remove('text-success', 'text-danger');

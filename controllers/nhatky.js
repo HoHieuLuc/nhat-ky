@@ -30,12 +30,12 @@ const getNhatKy = asyncWrapper(async (req, res, next) => {
 
 const updateNhatKy = asyncWrapper(async (req, res, next) => {
     const { id: nhatKyID } = req.params;
-    const update = req.body;
+    const { tieu_de, noi_dung} = req.body;
     const nhatKy = await NhatKy.findOneAndUpdate(
         { _id: nhatKyID },
         {
-            tieu_de: update.tieu_de,
-            noi_dung: update.noi_dung,
+            tieu_de: tieu_de,
+            noi_dung: noi_dung,
             lan_sua_cuoi: new Date()
         },
         {
