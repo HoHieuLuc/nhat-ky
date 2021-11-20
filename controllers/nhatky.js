@@ -51,9 +51,6 @@ const deleteNhatKy = asyncWrapper(async (req, res, next) => {
     res.status(200).json({ nhatKy });
 });
 
-
-
-
 module.exports = {
     getAllNhatKy,
     createNhatKy,
