@@ -12,26 +12,55 @@
 
 <body class="bg-dark text-white">
     <div class="container">
-        <form class="nhatky-form container bg-light rounded border border-1 bg-dark">
-            <h2>Thêm nhật ký</h2>
-            <div class="mb-3">
-                <label class="form-label fs-4">Tiêu đề</label>
-                <input type="text" name="tieu_de" id="tieu_de" placeholder="Tiêu đề"
-                    class="form-control bg-dark text-white">
-                <label class="form-label fs-4">Nội dung</label>
-                <textarea id="noi_dung" placeholder="Nội dung" class="form-control bg-dark text-white"></textarea>
-            </div>
+        <div class="container bg-light rounded border border-1 bg-dark">
+            <form class="nhatky-form">
+                <h2>Thêm nhật ký</h2>
+                <div class="mb-3">
+                    <label class="form-label fs-4">Tiêu đề</label>
+                    <input type="text" name="tieu_de" id="tieu_de" placeholder="Tiêu đề"
+                        class="form-control bg-dark text-white" required>
+                    <label class="form-label fs-4">Nội dung</label>
+                    <textarea id="noi_dung" placeholder="Nội dung" class="form-control bg-dark text-white"
+                        required></textarea>
+                </div>
+                <div class="d-grid mx-auto col-md-6 mb-3">
+                    <button type="submit" class="btn btn-lg btn-outline-light mb-3">Thêm</button>
+                </div>
+            </form>
             <div class="d-grid mx-auto col-md-6 mb-3">
-                <button type="submit" class="btn btn-lg btn-outline-light">Thêm</button>
+                <div class="row btn-group">
+                    <form id="tim-kiem-form">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control bg-dark text-white" id="tim-kiem" placeholder="Tìm kiếm"
+                                aria-label="Tìm kiếm" aria-describedby="button-addon2">
+                            <button class="btn btn-dark border border-white text-white" type="submit" id="button-addon2">Tìm</button>
+                        </div>
+                    </form>
+                    <div class="col-md-12">
+                        Sắp xếp theo:
+                    </div>
+                    <div class="d-grid col-md-6">
+                        <input type="radio" class="btn-check" name="btn-radio" id="sort-ngay-dang" checked
+                            autocomplete="off">
+                        <label class="btn btn-outline-light" for="sort-ngay-dang">Mới đăng</label>
+                    </div>
+                    <div class="d-grid col-md-6">
+                        <input type="radio" class="btn-check" name="btn-radio" id="sort-lan-sua-cuoi"
+                            autocomplete="off">
+                        <label class="btn btn-outline-light" for="sort-lan-sua-cuoi">Mới sửa</label>
+                    </div>
+                </div>
             </div>
-            <div class="form-alert"></div>
-        </form>
+        </div>
+
+
+        <div class="form-alert"></div>
         <section>
             <p class="loading-text">Loading...</p>
             <div class="nhatkys"></div>
         </section>
     </div>
-
+    </div>
     <!-- script -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

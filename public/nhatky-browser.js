@@ -5,15 +5,26 @@ const formAlertDOM = document.querySelector('.form-alert');
 const tieuDeDOM = document.querySelector('#tieu_de');
 const noiDungDOM = document.querySelector('#noi_dung');
 
+const sortNgayDangDOM = document.querySelector('#sort-ngay-dang');
+const sortLanSuaCuoiDOM = document.querySelector('#sort-lan-sua-cuoi');
+const formTimKiemDOM = document.querySelector('#tim-kiem-form');
+const timKiemDOM = document.querySelector('#tim-kiem');
+
 // hiển thị nhật ký
 const showNhatKys = async () => {
     loadingDOM.style.visibility = 'visible';
+    const sortString = 'sort=' +
+        (sortNgayDangDOM.checked ? '-ngay_dang' : '') +
+        (sortLanSuaCuoiDOM.checked ? '-lan_sua_cuoi' : '');
+    const searchString = `search=${timKiemDOM.value}`;
+    const queryString = [searchString, sortString].join('&');
+    //alert(sortString);
     try {
         const {
             data: { nhatKys }
-        } = await axios.get('/api/v1/nhatky');
+        } = await axios.get(`/api/v1/nhatky?${queryString}`);
         if (nhatKys.length < 1) {
-            nhatkysDOM.innerHTML = `Nhật ký của bạn đang trống`;
+            nhatkysDOM.textContent = `Không tìm thấy dữ liệu`;
             loadingDOM.style.visibility = 'hidden';
             return;
         }
@@ -26,10 +37,13 @@ const showNhatKys = async () => {
                 <div>
                     <div class="d-flex justify-content-between">
                         <p class="text-muted">Ngày đăng: ${new Date(ngay_dang).toLocaleString('vi-VN')}</p>
-                        ${lan_sua_cuoi !== null ?
-                    `<p class="text-muted">Lần sửa cuối: ${new Date(lan_sua_cuoi).toLocaleString('vi-VN')}</p>` :
-                    ``
-                }
+                        ${
+                            lan_sua_cuoi !== null ?
+                            `<p class="text-muted">
+                                Lần sửa cuối: ${new Date(lan_sua_cuoi).toLocaleString('vi-VN')}
+                            </p>` :
+                            ``
+                        }
                     </div>
                     <textarea style="height: 120px" disabled class="form-control bg-dark text-white">${noi_dung}</textarea>
                 </div>
@@ -49,6 +63,14 @@ const showNhatKys = async () => {
 }
 
 showNhatKys();
+
+sortNgayDangDOM.addEventListener('click', showNhatKys);
+sortLanSuaCuoiDOM.addEventListener('click', showNhatKys);
+
+formTimKiemDOM.addEventListener('submit', (e) => {
+    e.preventDefault();
+    showNhatKys();
+});
 
 // xóa
 nhatkysDOM.addEventListener('click', async (e) => {
