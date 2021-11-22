@@ -1,20 +1,21 @@
 const NhatKy = require("../model/nhatky");
-const asyncWrapper = require('../middlewares/async');
 const { createCustomError } = require('../errors/custom-error');
 
-const getAllNhatKy = asyncWrapper(async (req, res) => {
+const getAllNhatKy = async (req, res) => {
     const { sort, search } = req.query;
     const queryObject = {};
     if (search) {
         // tìm trên tiêu đề và nội dung
-        queryObject.search = { $or: [
-            { tieu_de: { $regex: search, $options: 'i' } },
-            { noi_dung: { $regex: search, $options: 'i' } }
-        ]};
+        queryObject.search = {
+            $or: [
+                { tieu_de: { $regex: search, $options: 'i' } },
+                { noi_dung: { $regex: search, $options: 'i' } }
+            ]
+        };
     }
     //console.log(queryObject.search);
 
-    let result = NhatKy.find( queryObject.search );
+    let result = NhatKy.find(queryObject.search);
 
     if (sort) {
         const sortList = sort.split(',').join(' ');
@@ -29,24 +30,31 @@ const getAllNhatKy = asyncWrapper(async (req, res) => {
     const skip = (page - 1) * limit;
     result = result.skip(skip).limit(limit);  */
     const nhatKys = await result;
+    if (!nhatKys) {
+        throw createCustomError(`Có lỗi xảy ra :(`, 500);
+    }
     res.status(200).json({ nhatKys });
-})
+}
 
-const createNhatKy = asyncWrapper(async (req, res) => {
+const createNhatKy = async (req, res) => {
+    const { tieu_de, noi_dung } = req.body;
+    if (!tieu_de || !noi_dung){
+        throw createCustomError(`Vui lòng nhập đầy đủ tiêu đề và nội dung`, 400);
+    }
     const nhatKy = await NhatKy.create(req.body);
     res.status(201).json({ nhatKy });
-})
+}
 
-const getNhatKy = asyncWrapper(async (req, res, next) => {
+const getNhatKy = async (req, res) => {
     const { id: nhatKyID } = req.params;
     const nhatKy = await NhatKy.findOne({ _id: nhatKyID });
     if (!nhatKy) {
-        return next(createCustomError(`Không tồn tại nhật ký có id: ${nhatKyID}`, 404));
+        throw createCustomError(`Không tồn tại nhật ký có id: ${nhatKyID}`, 404);
     }
     res.status(200).json({ nhatKy });
-});
+};
 
-const updateNhatKy = asyncWrapper(async (req, res, next) => {
+const updateNhatKy = async (req, res) => {
     const { id: nhatKyID } = req.params;
     const { tieu_de, noi_dung } = req.body;
     if (tieu_de && noi_dung) {
@@ -63,21 +71,21 @@ const updateNhatKy = asyncWrapper(async (req, res, next) => {
             }
         );
         if (!nhatKy) {
-            return next(createCustomError(`Không tồn tại nhật ký có id: ${nhatKyID}`, 404));
+            throw createCustomError(`Không tồn tại nhật ký có id: ${nhatKyID}`, 404);
         }
         return res.status(200).json({ nhatKy });
     }
-    next(createCustomError(`Có lỗi xảy ra`, 400));
-});
+    throw createCustomError(`Vui lòng nhập đầy dủ tiêu đề và nội dung`, 400);
+};
 
-const deleteNhatKy = asyncWrapper(async (req, res, next) => {
+const deleteNhatKy = async (req, res) => {
     const { id: nhatKyID } = req.params;
     const nhatKy = await NhatKy.findOneAndDelete({ _id: nhatKyID });
     if (!nhatKy) {
-        return next(createCustomError(`Không tồn tại nhật ký có id: ${nhatKyID}`, 404));
+        throw createCustomError(`Không tồn tại nhật ký có id: ${nhatKyID}`, 404);
     }
     res.status(200).json({ nhatKy });
-});
+};
 
 module.exports = {
     getAllNhatKy,

@@ -20,7 +20,9 @@ const showNhatKy = async () => {
         tieuDeDOM.value = tieu_de;
         noiDungDOM.value = noi_dung;
     } catch (error) {
-        console.log(error);
+        formAlertDOM.style.display = 'block';
+        formAlertDOM.textContent = `${error.response.data.msg}`;
+        formAlertDOM.classList.add('text-danger');
     }
 }
 showNhatKy();
@@ -39,9 +41,8 @@ editFormDOM.addEventListener('submit', async (e) => {
         formAlertDOM.textContent = `Sửa nhật ký thành công`;
         formAlertDOM.classList.add('text-success');
     } catch (error) {
-        console.log(error);
         formAlertDOM.style.display = 'block';
-        formAlertDOM.textContent = `Có lỗi xảy ra, hãy thử lại`;
+        formAlertDOM.textContent = `${error.response.data.msg}`;
         formAlertDOM.classList.add('text-danger');
     }
     editBtnDOM.textContent = 'Sửa';

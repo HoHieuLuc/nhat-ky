@@ -57,7 +57,7 @@ const showNhatKys = async () => {
         nhatkysDOM.innerHTML = allNhatKys;
     } catch (error) {
         //nhatkysDOM.innerHTML = error;
-        nhatkysDOM.innerHTML = '<h5 class="empty-list">Có lỗi xảy ra, hãy thử lại sau</h5>';
+        nhatkysDOM.innerHTML = `<h5 class="d-flex justify-content-center">${error.response.data.msg}</h5>`;
     }
     loadingDOM.style.visibility = 'hidden';
 }
@@ -107,7 +107,7 @@ formDOM.addEventListener('submit', async (e) => {
     } catch (error) {
         formAlertDOM.classList.add('text-danger');
         formAlertDOM.style.display = 'block';
-        formAlertDOM.textContent = `Có lỗi xảy ra`;
+        formAlertDOM.textContent = `${error.response.data.msg}`;
     }
     setTimeout(() => {
         formAlertDOM.style.display = 'none';

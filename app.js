@@ -1,8 +1,11 @@
+require('dotenv').config();
+require('express-async-errors');
+
 const express = require('express');
 const app = express();
 const nhatKy = require('./routes/nhatky');
 const connectDB = require('./db/connect');
-require('dotenv').config();
+
 
 const notFound = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
